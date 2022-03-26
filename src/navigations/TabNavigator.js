@@ -1,14 +1,15 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FontAwesome, Entypo } from "@expo/vector-icons";
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { FontAwesome, Entypo, Ionicons } from "@expo/vector-icons";
 
 import Colors from "../constant/Colors";
 
 import CategoriesNavigator from "../screens/categories";
 import HomeNavigator from "../screens/home";
 import ProfileNavigator from "../screens/profile";
+import BookmarkNavigator from "../screens/bookmark";
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 export default function TabNavigator() {
   return (
@@ -16,29 +17,44 @@ export default function TabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: Colors.secondary,
-        tabBarInactiveTintColor: Colors.inactiveTabColor,
+        // tabBarActiveTintColor: Colors.secondary,
+        // tabBarInactiveTintColor: Colors.inactiveTabColor,
+        // tabBarColor:"#1744e8"
       }}
+
       backBehavior="initialRoute"
-      initialRouteName="HomeNavigator"
+      initialRouteName="Bookmark"
     >
+    <Tab.Screen
+      name="HomeNavigator"
+      component={HomeNavigator}
+      options={{
+        tabBarColor: Colors.tab1Secondary,
+        tabBarLabel: "Home",
+        tabBarIcon: ({ color }) => (
+          <Entypo name="home" size={24} color={color} />
+        ),
+      }}
+    />
       <Tab.Screen
-        name="CategoriesNavigator"
-        component={CategoriesNavigator}
+        name="BookmarkNavigator"
+        component={BookmarkNavigator}
         options={{
-          tabBarLabel: "Categories",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="th-list" size={size} color={color} />
+        tabBarColor:Colors.tab2Secondary,
+        tabBarLabel: "Bookmark",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="bookmarks" size={24} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name="HomeNavigator"
-        component={HomeNavigator}
+        name="CategoriesNavigator"
+        component={CategoriesNavigator}
         options={{
-          tabBarLabel: "Home",
-          tabBarIcon: ({ color, size }) => (
-            <Entypo name="home" size={size} color={color} />
+        tabBarColor:Colors.tab3Secondary,
+        tabBarLabel: "Categories",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="th-list" size={24} color={color} />
           ),
         }}
       />
@@ -46,9 +62,10 @@ export default function TabNavigator() {
         name="ProfileNavigator"
         component={ProfileNavigator}
         options={{
-          tabBarLabel: "Profile",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="user" size={size} color={color} />
+        tabBarColor:Colors.tab4Secondary,
+        tabBarLabel: "Profile",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="user" size={24} color={color} />
           ),
         }}
       />

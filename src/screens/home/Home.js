@@ -18,7 +18,7 @@ export default Home = ({ navigation }) => {
 
   return (
     <View>
-      <StatusBar animated backgroundColor={Colors.secondary} style="light" />
+      <StatusBar style="light" />
       <Text>Home</Text>
       {isAuthenticated ? (
         <>
@@ -42,7 +42,7 @@ export const HomeOptions = ({ navigation }) => {
     headerTitle: "Home",
     headerTitleAlign: "center",
     headerTintColor: Colors.primary,
-    headerStyle: { backgroundColor: Colors.secondary },
+    headerStyle: { backgroundColor: Colors.tab1Secondary },
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item

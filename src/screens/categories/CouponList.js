@@ -10,7 +10,7 @@ import CustomHeaderButton from "../../components/CustomHeaderButton";
 export default CouponList = () => {
   return (
     <View>
-      <StatusBar animated backgroundColor={Colors.secondary} style="light" />
+      <StatusBar style="light" />
       <Text>CouponList</Text>
     </View>
   );

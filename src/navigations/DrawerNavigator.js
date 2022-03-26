@@ -2,7 +2,7 @@ import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import TabNavigator from "./TabNavigator";
-import Wishlist from "../screens/sideDrawer/Wishlist";
+import Wishlist from "../screens/bookmark/BookmarkList";
 
 const Drawer = createDrawerNavigator();
 

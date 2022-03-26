@@ -1,29 +1,27 @@
+import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-
+import CustomHeaderButton from "../../components/CustomHeaderButton";
 import Colors from "../../constant/Colors";
 
-import CustomHeaderButton from "../../components/CustomHeaderButton";
-
-export default CouponDetail = () => {
+export default function BookmarkList() {
   return (
     <View>
       <StatusBar style="light" />
-      <Text>CouponDetail</Text>
+      <Text>Bookmark</Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({});
 
-export const CouponDetailOptions = ({ navigation }) => {
+export const BookmarkListOptions = ({ navigation }) => {
   return {
-    headerTitle: "Coupon Detail",
+    headerTitle: "Bookmarks",
     headerTitleAlign: "center",
     headerTintColor: Colors.primary,
-    headerStyle: { backgroundColor: Colors.secondary },
+    headerStyle: { backgroundColor: Colors.tab3Secondary },
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item

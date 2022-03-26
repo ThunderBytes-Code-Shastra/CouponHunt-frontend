@@ -10,7 +10,7 @@ import CustomHeaderButton from "../../components/CustomHeaderButton";
 export default Profile = () => {
   return (
     <View>
-      <StatusBar animated backgroundColor={Colors.secondary} style="light" />
+      <StatusBar style="light" />
       <Text>Profile</Text>
     </View>
   );
@@ -23,7 +23,7 @@ export const ProfileOptions = ({ navigation }) => {
     headerTitle: "Profile",
     headerTitleAlign: "center",
     headerTintColor: Colors.primary,
-    headerStyle: { backgroundColor: Colors.secondary },
+    headerStyle: { backgroundColor: Colors.tab4Secondary },
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item

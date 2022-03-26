@@ -10,7 +10,7 @@ import Colors from "../../constant/Colors";
 export default AllCategories = () => {
   return (
     <View>
-      <StatusBar animated backgroundColor={Colors.secondary} style="light" />
+      <StatusBar style="light" />
       <Text>AllCategories</Text>
     </View>
   );
@@ -23,7 +23,7 @@ export const AllCategoriesOptions = ({ navigation }) => {
     headerTitle: "Categories",
     headerTitleAlign: "center",
     headerTintColor: Colors.primary,
-    headerStyle: { backgroundColor: Colors.secondary },
+    headerStyle: { backgroundColor: Colors.tab3Secondary },
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
