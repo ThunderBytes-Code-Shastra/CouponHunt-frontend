@@ -23,9 +23,8 @@ const authLoginLogic = createLogic({
 
       const res = await authAxios.post("login", {
         username,
-        pass: password,
+        password,
       });
-
       dispatch(authLoginSuccess(res.data));
     } catch (err) {
       dispatch(
@@ -44,7 +43,7 @@ const authSignUpLogic = createLogic({
     try {
       const { username, password, name } = action.payload;
 
-      const res = await authAxios.post("register", {
+      const res = await authAxios.post("/account", {
         username,
         password,
         name,
