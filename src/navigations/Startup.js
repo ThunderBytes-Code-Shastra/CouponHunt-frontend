@@ -60,7 +60,7 @@ export default Startup = () => {
 
         {/* Login and register(signUp) Screens */}
         <Stack.Screen name="Login" component={Login} />
-        {/* <Stack.Screen name="SignUp" component={SignUp} /> */}
+        <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
     </NavigationContainer>
   );

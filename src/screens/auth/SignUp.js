@@ -6,11 +6,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import * as Yup from "yup";
 
 import Colors from "../../constant/Colors";
 import CustomInput from "../../components/auth/CustomInput";
@@ -19,28 +19,10 @@ import {
   authLoadingSelector,
 } from "../../store/auth/selector";
 import { authSignUp } from "../../store/auth/slice";
-import DateInput from "../../components/DateInput";
-
-const signUpValidationSchema = Yup.object().shape({
-  name: Yup.string().trim().required("Please enter your full name"),
-  username: Yup.string()
-    .trim()
-    .matches(/^[a-zA-Z0-9_@\.\-]+$/, "Invalid name input")
-    .required("Please enter your name"),
-  password: Yup.string()
-    .required("Please enter your Password")
-    .matches(
-      /^[a-zA-Z0-9!@#%^&*+-=]{6,15}$/,
-      "Password can only contains 6 to 15 alphabet or number or symbol(!, @, #, %, ^, &, *, +, -, =)"
-    ),
-  confirmPassword: Yup.string()
-    .required("Please enter your Password again")
-    .oneOf([Yup.ref("password")], "Passwords must match"),
-});
+import signUpValidationSchema from "../../utils/signUpValidationSchema";
 
 export default SignUp = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [isDateModalVisible, setIsDateModalVisible] = useState(false);
 
   const isLoading = useSelector(authLoadingSelector);
   const isAuthenticated = useSelector(authIsAuthenticatedSelector);
@@ -80,7 +62,7 @@ export default SignUp = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <StatusBar animated backgroundColor={Colors.primary} style="dark" />
       <ScrollView contentContainerStyle={{ paddingHorizontal: 15 }}>
-        <Text style={styles.welcomeText}>Welcome to Bankco - Coupon Manager</Text>
+        <Text style={styles.welcomeText}>Welcome to Bankco</Text>
         <Text style={styles.loginText}>SignUp to your account</Text>
         <Formik
           validationSchema={signUpValidationSchema}
@@ -172,7 +154,7 @@ export default SignUp = ({ navigation }) => {
         </Formik>
         {isLoading && (
           <View style={styles.loader}>
-            <Loader />
+            <ActivityIndicator size="large" color={Colors.secondary} />
           </View>
         )}
         <View style={styles.footer} />
