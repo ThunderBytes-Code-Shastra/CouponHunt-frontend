@@ -1,12 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
 
-export default function TabNavigator() {
+export default function TabNavigator({ navigation }) {
   return (
-    <View>
+    <View style={{ padding: 50 }}>
       <Text>TabNavigator</Text>
+      <Button title="Login" onPress={() => navigation.navigate("Login")} />
     </View>
-  )
+  );
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
