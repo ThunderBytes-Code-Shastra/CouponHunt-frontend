@@ -17,6 +17,7 @@ import {
   authLoadingSelector,
 } from "../store/auth/selector";
 import { authRemoveError } from "../store/auth/slice";
+import DrawerNavigator from "./DrawerNavigator";
 
 const Stack = createStackNavigator();
 
@@ -56,7 +57,7 @@ export default Startup = () => {
         ) : null}
 
         {/* Main content */}
-        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
 
         {/* Login and register(signUp) Screens */}
         <Stack.Screen name="Login" component={Login} />

@@ -37,7 +37,7 @@ export default SignUp = ({ navigation }) => {
     if (isAuthenticated === true) {
       navigation.reset({
         index: 0,
-        routes: [{ name: "TabNavigator" }],
+        routes: [{ name: "DrawerNavigator" }],
       });
     }
   }, [isAuthenticated]);

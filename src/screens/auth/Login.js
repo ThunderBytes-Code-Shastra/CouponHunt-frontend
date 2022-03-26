@@ -38,7 +38,7 @@ export default Login = ({ navigation }) => {
     if (isAuthenticated === true) {
       navigation.reset({
         index: 0,
-        routes: [{ name: "TabNavigator" }],
+        routes: [{ name: "DrawerNavigator" }],
       });
     }
   }, [isAuthenticated]);
