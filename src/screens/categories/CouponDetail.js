@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
@@ -37,7 +37,8 @@ export default CouponDetail = ({ route }) => {
       />
       <View
         style={{
-          width: "90%",
+          width: "80%",
+          marginTop: 100,
           zIndex: 10,
         }}
       >
@@ -46,42 +47,86 @@ export default CouponDetail = ({ route }) => {
             flexDirection: "row",
             marginVertical: 8,
             backgroundColor: "#fff",
-            borderRadius: 10,
+            borderRadius: 15,
             overflow: "hidden",
           }}
         >
-          <View style={{ flex: 1 }}>
-            <View style={{ flexDirection: "row", flex: 1 }}>
-              <Image
-                source={{ uri: coupon.img }}
-                style={{ width: 100, height: 80, marginRight: 5 }}
-                resizeMode="contain"
-              />
-              <Text
-                style={{
-                  color: "#333",
-                  flexShrink: 1,
-                  paddingRight: 5,
-                  paddingTop: 10,
-                }}
-                lineBreakMode="clip"
-              >
-                {coupon.desc}
-              </Text>
-            </View>
+          <View style={{}}>
             <View
               style={{
                 flexDirection: "row",
-                paddingHorizontal: 15,
-                aligncoupons: "center",
-                paddingVertical: 5,
+                alignItems: "center",
+                justifyContent: "space-between",
+                paddingHorizontal: 10,
               }}
             >
-              <View style={{ flex: 1 }}>
-                <Text>Expires</Text>
-                <Text>{coupon.expiry}</Text>
-              </View>
+              <Text
+                style={{
+                  color: Colors.tab2Secondary,
+                  paddingRight: 5,
+                  paddingTop: 10,
+                  fontSize: 24,
+                }}
+              >
+                {coupon.offer + " OFF"}
+              </Text>
+              <Image
+                source={{ uri: coupon.img }}
+                style={{ width: 150, height: 120, marginRight: 5 }}
+                resizeMode="contain"
+              />
             </View>
+
+            <Text
+              style={{
+                color: Colors.tab2Secondary,
+                fontSize: 22,
+                fontWeight: "bold",
+                marginBottom: 10,
+                marginTop: 20,
+              }}
+            >
+              Description
+            </Text>
+            <Text style={{ color: Colors.tab2Secondary, fontSize: 18 }}>
+              {coupon.desc}
+            </Text>
+
+            <Text
+              style={{
+                color: Colors.tab2Secondary,
+                fontSize: 22,
+                fontWeight: "bold",
+                marginTop: 30,
+                marginBottom: 10,
+              }}
+            >
+              Terms and Condition
+            </Text>
+            <Text
+              style={{
+                color: Colors.tab2Secondary,
+                fontSize: 18,
+                textAlign: "justify",
+              }}
+            >
+              {coupon.tnc}
+            </Text>
+
+            <Text
+              style={{
+                backgroundColor: Colors.tab2Secondary,
+                color: "#fff",
+                fontSize: 22,
+                paddingVertical: 15,
+                paddingHorizontal: 25,
+                alignSelf: "center",
+                marginTop: 30,
+                borderRadius: 15
+              }}
+            >
+              Code: {coupon.code}
+            </Text>
           </View>
         </View>
       </View>
@@ -96,6 +141,16 @@ export const CouponDetailOptions = ({ navigation }) => {
     headerTitle: "Coupon Detail",
     // headerTitleAlign: "center",
     headerTintColor: Colors.primary,
-    headerStyle: { backgroundColor: Colors.tab2Secondary },
+    headerStyle: { backgroundColor: Colors.tab2Secondary, elevation: 0 },
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item
+          title="Back"
+          color={Colors.primary}
+          iconName="caret-back"
+          onPress={() => navigation.goBack()}
+        />
+      </HeaderButtons>
+    ),
   };
 };

@@ -109,6 +109,8 @@ export default CouponList = ({ route, navigation }) => {
                 backgroundColor: "#fff",
                 borderRadius: 10,
                 overflow: "hidden",
+                elevation: 6,
+                marginHorizontal: 6
               }}
             >
               <View
@@ -165,6 +167,8 @@ export default CouponList = ({ route, navigation }) => {
                     style={{
                       backgroundColor: Colors.tab2Secondary,
                       borderRadius: 15,
+                      elevation: 6,
+                      marginBottom: 10
                     }}
                     onPress={() =>
                       navigation.navigate("CouponDetail", {
