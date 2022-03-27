@@ -6,6 +6,9 @@ import {
   getCoupon,
   getCouponFail,
   getCouponSuccess,
+  sendMessages,
+  sendMessagesFail,
+  sendMessagesSuccess,
   submitCardDetail,
   submitCardDetailFail,
   submitCardDetailSuccess,
@@ -36,13 +39,13 @@ const getCouponLogic = createLogic({
 
   async process({ action, baseAxios }, dispatch, done) {
     try {
-      const { bankName } = action.payload;
+      const { bankName, limit, isHomeScreen } = action.payload;
 
       const res = await baseAxios.get("bank-and-offer/offers", {
-        params: { bankName },
+        params: { bankName, limit },
       });
 
-      dispatch(getCouponSuccess(res.data));
+      dispatch(getCouponSuccess({ data: res.data, isHomeScreen }));
     } catch (err) {
       dispatch(
         getCouponFail(get(err, "response.data.error.message", err.message))
@@ -72,6 +75,30 @@ const submitCardDetailLogic = createLogic({
         submitCardDetailFail(
           get(err, "response.data.error.message", err.message)
         )
+      );
+    }
+    done();
+  },
+});
+
+const sendMessagesLogic = createLogic({
+  type: sendMessages.type,
+  latest: true,
+
+  async process({ action, mlAxios }, dispatch, done) {
+    try {
+      const { messages } = action.payload;
+
+      const res = await mlAxios.post("/translation", {
+        messages: [],
+      });
+
+      console.log("submitCardDetail: ", res);
+      dispatch(sendMessagesSuccess(res.data));
+    } catch (err) {
+      console.log("error: ", { ...err });
+      dispatch(
+        sendMessagesFail(get(err, "response.data.error.message", err.message))
       );
     }
     done();

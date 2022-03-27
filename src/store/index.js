@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createLogicMiddleware } from "redux-logic";
 
-import { authAxios, baseAxios } from "../services/axios";
+import { authAxios, baseAxios, mlAxios } from "../services/axios";
 
 import authReducer from "./auth/slice";
 import authLogics from "./auth/logic";
@@ -12,6 +12,7 @@ import couponLogics from "./coupon/logic";
 const logicDependencies = {
   authAxios,
   baseAxios,
+  mlAxios,
 };
 
 const logicsArray = [...authLogics, ...couponLogics];

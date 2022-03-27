@@ -5,6 +5,7 @@ const couponSlice = createSlice({
   initialState: {
     categories: [],
     couponList: [],
+    homeCouponList: [],
     loadingCategories: true,
     loadingCoupon: true,
   },
@@ -29,7 +30,12 @@ const couponSlice = createSlice({
     },
     getCouponSuccess(state, { payload }) {
       state.loadingCoupon = false;
-      state.couponList = payload.data;
+      if (payload.isHomeScreen) {
+        state.homeCouponList = payload.data.data;
+        console.log(state.homeCouponList);
+      } else {
+        state.couponList = payload.data.data;
+      }
     },
     getCouponFail(state) {
       state.loadingCoupon = false;
@@ -43,6 +49,9 @@ const couponSlice = createSlice({
     submitCardDetailFail(state, { payload }) {
       state.loadingCategories = false;
     },
+    sendMessages(state, { payload }) {},
+    sendMessagesSuccess(state, { payload }) {},
+    sendMessagesFail(state, { payload }) {},
   },
 });
 
@@ -56,6 +65,9 @@ export const {
   submitCardDetail,
   submitCardDetailSuccess,
   submitCardDetailFail,
+  sendMessages,
+  sendMessagesSuccess,
+  sendMessagesFail,
 } = couponSlice.actions;
 
 export default couponSlice.reducer;

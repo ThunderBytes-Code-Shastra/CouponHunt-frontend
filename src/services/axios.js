@@ -11,3 +11,7 @@ export const authAxios = axios.create({
 export const baseAxios = axios.create({
   baseURL: config.baseURL,
 });
+
+export const mlAxios = axios.create({
+  baseURL: config.mlURL,
+});

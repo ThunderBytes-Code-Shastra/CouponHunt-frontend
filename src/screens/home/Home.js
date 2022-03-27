@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -22,8 +22,9 @@ import {
   authIsAuthenticatedSelector,
   authNameSelector,
 } from "../../store/auth/selector";
+import { getCoupon } from "../../store/coupon/slice";
 
-const data = [
+const BannerData = [
   {
     _id: "0",
     name: "Axis Bank",
@@ -93,9 +94,8 @@ const data2 = [
 const { width, height } = Dimensions.get("screen");
 
 export default Home = ({ navigation }) => {
-  const bannerCarousel = useRef();
-
   const isAuthenticated = useSelector(authIsAuthenticatedSelector);
+  const homeCouponList = useSelector((state) => state.coupon.homeCouponList);
   const name = useSelector(authNameSelector);
 
   const dispatch = useDispatch();
@@ -136,6 +136,10 @@ export default Home = ({ navigation }) => {
       (count, smsList) => {}
     );
   };
+
+  useEffect(() => {
+    dispatch(getCoupon({ isHomeScreen: true }));
+  }, []);
 
   const renderItem = ({ item }) => {
     return (
@@ -180,7 +184,7 @@ export default Home = ({ navigation }) => {
         >
           <Text
             style={{
-              fontSize: 32,
+              fontSize: 26,
               fontWeight: "bold",
               paddingLeft: 8,
               paddingVertical: 10,
@@ -193,7 +197,7 @@ export default Home = ({ navigation }) => {
         </View>
         <View>
           <FlatList
-            data={data}
+            data={BannerData}
             keyExtractor={(item) => item._id}
             renderItem={renderItem}
             showsHorizontalScrollIndicator={false}
@@ -204,7 +208,7 @@ export default Home = ({ navigation }) => {
         <View
           style={{ flexDirection: "row", flexWrap: "wrap", marginVertical: 12 }}
         >
-          {data1.map((item) => (
+          {homeCouponList.slice(0, 4).map((item) => (
             <View
               key={item._id}
               style={{
@@ -258,7 +262,7 @@ export default Home = ({ navigation }) => {
         <View
           style={{ flexDirection: "row", flexWrap: "wrap", marginVertical: 12 }}
         >
-          {data2.map((item) => (
+          {homeCouponList.slice(4).map((item) => (
             <View
               key={item._id}
               style={{
