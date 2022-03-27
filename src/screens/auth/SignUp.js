@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Formik } from "formik";
@@ -14,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Colors from "../../constant/Colors";
 import CustomInput from "../../components/auth/CustomInput";
+import logo from "../../../assets/logo.png";
+
 import {
   authIsAuthenticatedSelector,
   authLoadingSelector,
@@ -96,6 +99,7 @@ export default SignUp = ({ navigation }) => {
             Skip
           </Text>
         </TouchableOpacity>
+        <Image source={logo} style={styles.logo} resizeMode="stretch" />
         <Text style={styles.welcomeText}>Welcome to Bankco</Text>
         <Text style={styles.loginText}>SignUp to your account</Text>
         <Formik
@@ -242,12 +246,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.primary,
   },
+  logo: {
+    width: 400,
+    height: 200,
+    alignSelf: "center",
+    marginTop: 8,
+    backgroundColor: "red"
+  },
   welcomeText: {
     fontSize: 24,
     fontWeight: "bold",
     color: Colors.secondary,
     textAlign: "center",
-    marginTop: 70,
+    // marginTop: 70,
     marginBottom: 35,
     maxWidth: 380,
     alignSelf: "center",
@@ -281,5 +292,8 @@ const styles = StyleSheet.create({
   loader: {
     flex: 1,
     alignItems: "center",
+  },
+  footer: {
+    marginBottom: 50,
   },
 });

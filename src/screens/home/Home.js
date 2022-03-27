@@ -15,6 +15,7 @@ import SmsAndroid from "react-native-get-sms-android";
 
 import Colors from "../../constant/Colors";
 import most_popular_coupuns from "../../../assets/most_popular_coupuns.jpg";
+import logo from "../../../assets/logo1.png";
 
 import {
   authIsAuthenticatedSelector,
@@ -82,6 +83,7 @@ export default Home = ({ navigation }) => {
   const navigateCouponDetails = (couponId) => {
     navigation.navigate("CategoriesNavigator", {
       screen: "CouponDetail",
+      initial: false,
       params: { couponId, isHome: true },
     });
   };
@@ -225,8 +227,17 @@ const styles = StyleSheet.create({
 export const HomeOptions = ({ navigation }) => {
   return {
     headerTitle: "Home",
-    // headerTitleAlign: "center",
+    headerTitleAlign: "center",
     headerTintColor: Colors.primary,
     headerStyle: { backgroundColor: Colors.tab1Secondary },
+    headerLeft: () => (
+      <View>
+        <Image
+          source={logo}
+          resizeMode="cover"
+          style={{ height: 85, width: 85, overflow: "hidden" }}
+        />
+      </View>
+    ),
   };
 };

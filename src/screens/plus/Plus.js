@@ -9,6 +9,7 @@ import {
   FlatList,
   Switch,
   TouchableOpacity,
+  LogBox
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +26,8 @@ import CustomInput from "../../components/auth/CustomInput";
 
 import { getCategories, submitCardDetail } from "../../store/coupon/slice";
 import Skeleton from "../../components/Skeleton";
+
+LogBox.ignoreAllLogs();
 
 const { width, height } = Dimensions.get("screen");
 
@@ -239,7 +242,7 @@ const styles = StyleSheet.create({
 
 export const PlusOptions = ({ navigation }) => {
   return {
-    headerTitle: "Plus",
+    headerTitle: "Card Details",
     // headerTitleAlign: "center",
     headerTintColor: Colors.primary,
     headerStyle: { backgroundColor: Colors.tab3Secondary },
