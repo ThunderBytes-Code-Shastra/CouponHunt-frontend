@@ -1,6 +1,6 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { FontAwesome, Entypo, Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Entypo, Ionicons, AntDesign } from "@expo/vector-icons";
 
 import Colors from "../constant/Colors";
 
@@ -9,6 +9,7 @@ import HomeNavigator from "../screens/home";
 import ProfileNavigator from "../screens/profile";
 import BookmarkNavigator from "../screens/bookmark";
 import PlusNavigator from "../screens/plus/index";
+import OcrTextDetection from "../screens/OcrTextDetection";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -62,13 +63,13 @@ export default function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="BookmarkNavigator"
-        component={BookmarkNavigator}
+        name="OcrTextDetection"
+        component={OcrTextDetection}
         options={{
           tabBarColor: Colors.tab4Secondary,
-          tabBarLabel: "Bookmark",
+          tabBarLabel: "Ocr",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="bookmarks" size={24} color={color} />
+            <AntDesign name="camera" size={24} color={color} />
           ),
         }}
       />
