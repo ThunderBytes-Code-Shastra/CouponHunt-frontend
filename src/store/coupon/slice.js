@@ -6,6 +6,7 @@ const couponSlice = createSlice({
     categories: [],
     couponList: [],
     homeCouponList: [],
+    sms: [],
     loadingCategories: true,
     loadingCoupon: true,
   },
@@ -32,7 +33,6 @@ const couponSlice = createSlice({
       state.loadingCoupon = false;
       if (payload.isHomeScreen) {
         state.homeCouponList = payload.data.data;
-        console.log(state.homeCouponList);
       } else {
         state.couponList = payload.data.data;
       }

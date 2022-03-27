@@ -13,6 +13,7 @@ import {
   authLogoutSuccess,
   authLogoutFail,
 } from "./slice";
+import { sendMessages } from "../coupon/slice";
 
 const authLoginLogic = createLogic({
   type: authLogin.type,
@@ -27,7 +28,9 @@ const authLoginLogic = createLogic({
         password,
       });
 
-      console.log("authLoginSuccess: ", res.data)
+      dispatch(sendMessages());
+
+      console.log("authLoginSuccess: ", res.data);
       dispatch(authLoginSuccess(res.data));
     } catch (err) {
       console.log("authLogin: ", { ...err });
@@ -54,6 +57,8 @@ const authSignUpLogic = createLogic({
         email,
         phone,
       });
+
+      dispatch(sendMessages());
 
       dispatch(authSignUpSuccess(res.data));
     } catch (err) {

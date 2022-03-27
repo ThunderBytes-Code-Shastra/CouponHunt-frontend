@@ -30,7 +30,6 @@ import {
 } from "react-native-safe-area-context";
 import { authLogout } from "../../store/auth/slice";
 
-import { useSelector } from "react-redux";
 
 export const PersonalInfo = () => (
   <View style={{ flex: 1, backgroundColor: "#fff" }}></View>

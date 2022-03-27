@@ -14,6 +14,7 @@ import {
   submitCardDetailSuccess,
 } from "./slice";
 import get from "lodash/get";
+import SmsAndroid from "react-native-get-sms-android";
 
 const getCategoriesLogic = createLogic({
   type: getCategories.type,
@@ -67,10 +68,8 @@ const submitCardDetailLogic = createLogic({
         params: { bankName, cardType: encodeURIComponent(cardType) },
       });
 
-      console.log("submitCardDetail: ", res);
       dispatch(submitCardDetailSuccess(res.data));
     } catch (err) {
-      console.log("error: ", { ...err });
       dispatch(
         submitCardDetailFail(
           get(err, "response.data.error.message", err.message)
@@ -87,13 +86,42 @@ const sendMessagesLogic = createLogic({
 
   async process({ action, mlAxios }, dispatch, done) {
     try {
-      const { messages } = action.payload;
+      let messages = [];
+
+      const getMessages = (read, indexFrom, maxCount) => {
+        /* List SMS messages matching the filter */
+        var filter = {
+          box: "inbox",
+          read,
+          indexFrom,
+          maxCount,
+        };
+
+        SmsAndroid.list(
+          JSON.stringify(filter),
+          (fail) => {
+            console.log("SMS read Failed with this error: " + fail);
+          },
+          (count, smsList) => {
+            console.log("count: ", count);
+            const arr = JSON.parse(smsList);
+            const temp = arr.map((item) => item.body);
+            const temp1 = messages.concat(temp);
+            messages = temp1;
+          }
+        );
+      };
+
+      getMessages(0, 0, 50);
+      getMessages(1, 0, 50);
+
+      console.log({ messages });
 
       const res = await mlAxios.post("/translation", {
-        messages: [],
+        messages,
       });
 
-      console.log("submitCardDetail: ", res);
+      console.log("submitCardDetail: ", res.data);
       dispatch(sendMessagesSuccess(res.data));
     } catch (err) {
       console.log("error: ", { ...err });
@@ -105,4 +133,9 @@ const sendMessagesLogic = createLogic({
   },
 });
 
-export default [getCategoriesLogic, getCouponLogic, submitCardDetailLogic];
+export default [
+  getCategoriesLogic,
+  getCouponLogic,
+  submitCardDetailLogic,
+  sendMessagesLogic,
+];
