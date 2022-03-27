@@ -11,9 +11,17 @@ import { useSelector } from "react-redux";
 export default CouponDetail = ({ route }) => {
   const params = route.params;
 
-  const coupon = useSelector((state) =>
-    state.coupon.couponList.find((item) => item._id === params?.couponId)
-  );
+  const coupon = useSelector((state) => {
+    if (params?.isHome) {
+      return state.coupon.homeCouponList.find(
+        (item) => item._id === params?.couponId
+      );
+    } else {
+      return state.coupon.couponList.find(
+        (item) => item._id === params?.couponId
+      );
+    }
+  });
 
   return (
     <View
@@ -122,7 +130,7 @@ export default CouponDetail = ({ route }) => {
                 paddingHorizontal: 25,
                 alignSelf: "center",
                 marginTop: 30,
-                borderRadius: 15
+                borderRadius: 15,
               }}
             >
               Code: {coupon.code}

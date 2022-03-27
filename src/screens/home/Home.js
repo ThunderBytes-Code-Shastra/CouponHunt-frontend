@@ -80,10 +80,11 @@ export default Home = ({ navigation }) => {
   };
 
   const navigateCouponDetails = (couponId) => {
-    navigation.navigate("CategoriesNavigator", params:{
+    navigation.navigate("CategoriesNavigator", {
       screen: "CouponDetail",
-      params: { couponId }     
-    )}}
+      params: { couponId, isHome: true },
+    });
+  };
 
   return (
     <View style={styles.container}>
