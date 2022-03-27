@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Colors from "../../constant/Colors";
 import CustomInput from "../../components/auth/CustomInput";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.jpeg";
 
 import {
   authIsAuthenticatedSelector,
@@ -100,7 +100,7 @@ export default SignUp = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
         <Image source={logo} style={styles.logo} resizeMode="stretch" />
-        <Text style={styles.welcomeText}>Welcome to Bankco</Text>
+        <Text style={styles.welcomeText}>Welcome to Coupon Hunt</Text>
         <Text style={styles.loginText}>SignUp to your account</Text>
         <Formik
           validationSchema={signUpValidationSchema}

@@ -9,7 +9,7 @@ import {
   FlatList,
   Switch,
   TouchableOpacity,
-  LogBox
+  LogBox,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useDispatch, useSelector } from "react-redux";
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     borderRadius: 30,
-    borderColor: "#03B44D",
+    borderColor: Colors.tab3Secondary,
   },
   placeholder: {
     color: "#b2b2b2",

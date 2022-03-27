@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Colors from "../../constant/Colors";
 import loginValidationSchema from "../../utils/loginValidationSchema";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.jpeg";
 
 import CustomInput from "../../components/auth/CustomInput";
 
