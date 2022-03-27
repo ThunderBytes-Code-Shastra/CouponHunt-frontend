@@ -9,12 +9,11 @@ import HomeNavigator from "../screens/home";
 import ProfileNavigator from "../screens/profile";
 import BookmarkNavigator from "../screens/bookmark";
 import PlusNavigator from "../screens/plus/index";
-import OcrTextDetection from "../screens/OcrTextDetection";
+import ocrDetection from "../screens/ocrDetection";
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function TabNavigator() {
-  const handlePress = (index) => {};
 
   return (
     <Tab.Navigator
@@ -26,7 +25,6 @@ export default function TabNavigator() {
         // tabBarColor:"#1744e8"
       }}
       backBehavior="initialRoute"
-      initialRouteName="Bookmark"
     >
       <Tab.Screen
         name="HomeNavigator"
@@ -63,11 +61,12 @@ export default function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="OcrTextDetection"
-        component={OcrTextDetection}
+        name="OcrDetectionNavigator"
+        component={ocrDetection}
         options={{
+          headerShown: true,
           tabBarColor: Colors.tab4Secondary,
-          tabBarLabel: "Ocr",
+          tabBarLabel: "OCR",
           tabBarIcon: ({ color }) => (
             <AntDesign name="camera" size={24} color={color} />
           ),
