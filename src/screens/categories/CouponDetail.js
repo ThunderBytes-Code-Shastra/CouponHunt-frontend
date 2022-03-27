@@ -21,18 +21,8 @@ const styles = StyleSheet.create({});
 export const CouponDetailOptions = ({ navigation }) => {
   return {
     headerTitle: "Coupon Detail",
-    headerTitleAlign: "center",
+    // headerTitleAlign: "center",
     headerTintColor: Colors.primary,
-    headerStyle: { backgroundColor: Colors.secondary },
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item
-          title="drawer"
-          color={Colors.primary}
-          iconName="ios-reorder-three"
-          onPress={() => navigation.openDrawer()}
-        />
-      </HeaderButtons>
-    ),
+    headerStyle: { backgroundColor: Colors.tab4Secondary },
   };
 };

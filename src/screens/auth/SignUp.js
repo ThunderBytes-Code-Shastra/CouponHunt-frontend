@@ -28,6 +28,8 @@ export default SignUp = ({ navigation }) => {
   const isAuthenticated = useSelector(authIsAuthenticatedSelector);
 
   const usernameRef = useRef(null);
+  const emailRef = useRef();
+  const phoneRef = useRef();
   const passRef = useRef(null);
   const confirmPassRef = useRef(null);
 
@@ -37,13 +39,21 @@ export default SignUp = ({ navigation }) => {
     if (isAuthenticated === true) {
       navigation.reset({
         index: 0,
-        routes: [{ name: "DrawerNavigator" }],
+        routes: [{ name: "TabNavigator" }],
       });
     }
   }, [isAuthenticated]);
 
   const focusUsername = () => {
     usernameRef.current.focus();
+  };
+
+  const focusEmail = () => {
+    emailRef.current.focus();
+  };
+
+  const focusPhone = () => {
+    phoneRef.current.focus();
   };
 
   const focusPass = () => {
@@ -58,16 +68,42 @@ export default SignUp = ({ navigation }) => {
     dispatch(authSignUp(values));
   };
 
+  const skipSignUp = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "TabNavigator" }],
+    });
+  };
+
+  const navigateLogin = () => {
+    navigation.replace("Login");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar animated backgroundColor={Colors.primary} style="dark" />
       <ScrollView contentContainerStyle={{ paddingHorizontal: 15 }}>
+        <TouchableOpacity onPress={skipSignUp}>
+          <Text
+            style={{
+              textAlign: "right",
+              fontSize: 16,
+              color: Colors.secondary,
+              marginVertical: 8,
+              marginRight: 8,
+            }}
+          >
+            Skip
+          </Text>
+        </TouchableOpacity>
         <Text style={styles.welcomeText}>Welcome to Bankco</Text>
         <Text style={styles.loginText}>SignUp to your account</Text>
         <Formik
           validationSchema={signUpValidationSchema}
           initialValues={{
             username: "",
+            email: "",
+            phone: "",
             password: "",
             confirmPassword: "",
             name: "",
@@ -82,7 +118,6 @@ export default SignUp = ({ navigation }) => {
             handleBlur,
             handleChange,
             setFieldTouched,
-            setFieldValue,
           }) => (
             <>
               <CustomInput
@@ -109,6 +144,38 @@ export default SignUp = ({ navigation }) => {
                 placeholder="Enter your username"
                 title="Username"
                 returnKeyType="next"
+                onSubmitEditing={focusEmail}
+              />
+              <CustomInput
+                ref={emailRef}
+                value={values["email"]}
+                error={errors["email"]}
+                touched={touched["email"]}
+                onChange={handleChange("email")}
+                onBlur={() => handleBlur("email")}
+                setFieldTouched={() => setFieldTouched("email")}
+                placeholder="Enter your email id"
+                title="Email ID"
+                leadingTitle="email"
+                keyboardType="email-address"
+                returnKeyType="next"
+                onSubmitEditing={focusPhone}
+              />
+              <CustomInput
+                ref={phoneRef}
+                value={values["phone"]}
+                error={errors["phone"]}
+                touched={touched["phone"]}
+                onChange={handleChange("phone")}
+                onBlur={() => handleBlur("phone")}
+                setFieldTouched={() => setFieldTouched("phone")}
+                placeholder="Enter your mobile number"
+                title="Mobile Number"
+                leadingTitle="phone"
+                countryCode="+91"
+                onCodePress={() => {}}
+                returnKeyType="next"
+                keyboardType="numeric"
                 onSubmitEditing={focusPass}
               />
               <CustomInput
@@ -152,7 +219,14 @@ export default SignUp = ({ navigation }) => {
             </>
           )}
         </Formik>
-        {isLoading && (
+        {!isLoading ? (
+          <Text style={styles.text}>
+            Have a account?{" "}
+            <Text onPress={navigateLogin} style={styles.login}>
+              Login
+            </Text>
+          </Text>
+        ) : (
           <View style={styles.loader}>
             <ActivityIndicator size="large" color={Colors.secondary} />
           </View>
@@ -173,7 +247,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Colors.secondary,
     textAlign: "center",
-    marginTop: 100,
+    marginTop: 70,
     marginBottom: 35,
     maxWidth: 380,
     alignSelf: "center",
@@ -200,6 +274,9 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: "center",
     fontSize: 16,
+  },
+  login: {
+    fontWeight: "bold",
   },
   loader: {
     flex: 1,

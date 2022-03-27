@@ -6,6 +6,14 @@ export default signUpValidationSchema = Yup.object().shape({
     .trim()
     .matches(/^[a-zA-Z0-9_@\.\-]+$/, "Invalid name input")
     .required("Please enter your name"),
+  phone: Yup.string().matches(
+    /^[0-9]{10}$/,
+    "Please enter a valid mobile number"
+  ),
+  email: Yup.string().matches(
+    /(^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$)/,
+    "Please provide a valid email "
+  ),
   password: Yup.string()
     .required("Please enter your Password")
     .matches(

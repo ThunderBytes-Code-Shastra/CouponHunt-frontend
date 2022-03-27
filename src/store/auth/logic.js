@@ -1,5 +1,6 @@
 import { createLogic } from "redux-logic";
 import get from "lodash/get";
+import * as SecureStore from 'expo-secure-store';
 
 import {
   authLogin,
@@ -41,12 +42,14 @@ const authSignUpLogic = createLogic({
 
   async process({ action, authAxios }, dispatch, done) {
     try {
-      const { username, password, name } = action.payload;
+      const { username, password, name, email, phone } = action.payload;
 
       const res = await authAxios.post("/account", {
         username,
         password,
         name,
+        email,
+        phone,
       });
 
       dispatch(authSignUpSuccess(res.data));

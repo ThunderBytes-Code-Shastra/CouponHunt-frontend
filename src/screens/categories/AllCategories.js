@@ -21,18 +21,8 @@ const styles = StyleSheet.create({});
 export const AllCategoriesOptions = ({ navigation }) => {
   return {
     headerTitle: "Categories",
-    headerTitleAlign: "center",
+    // headerTitleAlign: "center",
     headerTintColor: Colors.primary,
-    headerStyle: { backgroundColor: Colors.tab3Secondary },
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item
-          title="drawer"
-          color={Colors.primary}
-          iconName="ios-reorder-three"
-          onPress={() => navigation.openDrawer()}
-        />
-      </HeaderButtons>
-    ),
+    headerStyle: { backgroundColor: Colors.tab4Secondary },
   };
 };

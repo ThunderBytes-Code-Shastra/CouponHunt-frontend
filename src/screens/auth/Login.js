@@ -38,7 +38,7 @@ export default Login = ({ navigation }) => {
     if (isAuthenticated === true) {
       navigation.reset({
         index: 0,
-        routes: [{ name: "DrawerNavigator" }],
+        routes: [{ name: "TabNavigator" }],
       });
     }
   }, [isAuthenticated]);
@@ -55,10 +55,30 @@ export default Login = ({ navigation }) => {
     navigation.replace("SignUp");
   };
 
+  const skipLogin = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "TabNavigator" }],
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar animated backgroundColor={Colors.primary} style="dark" />
       <ScrollView contentContainerStyle={{ paddingHorizontal: 15 }}>
+        <TouchableOpacity onPress={skipLogin}>
+          <Text
+            style={{
+              textAlign: "right",
+              fontSize: 16,
+              color: Colors.secondary,
+              marginVertical: 8,
+              marginRight: 8,
+            }}
+          >
+            Skip
+          </Text>
+        </TouchableOpacity>
         <Text style={styles.welcomeText}>Welcome to Bankco</Text>
         <Text style={styles.loginText}>Login to your account</Text>
 
@@ -149,7 +169,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Colors.secondary,
     textAlign: "center",
-    marginTop: 100,
+    marginTop: 70,
     marginBottom: 35,
     maxWidth: 380,
     alignSelf: "center",

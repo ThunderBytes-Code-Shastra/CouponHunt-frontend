@@ -57,7 +57,7 @@ export default Startup = () => {
         ) : null}
 
         {/* Main content */}
-        <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
 
         {/* Login and register(signUp) Screens */}
         <Stack.Screen name="Login" component={Login} />

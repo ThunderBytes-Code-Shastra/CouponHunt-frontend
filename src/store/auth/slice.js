@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   username: "",
   name: "",
+  email: "",
+  phone: "",
   avatar: "",
   accessToken: "",
   isAuthenticated: false,
@@ -19,9 +21,11 @@ const authSlice = createSlice({
     },
     authLoginSuccess(state, { payload }) {
       state.accessToken = payload.accessToken;
-      state.username = payload.username;
-      state.name = payload.name;
-      state.avatar = payload.avatar;
+      state.username = payload.user.username;
+      state.name = payload.user.name;
+      state.email = payload.email;
+      state.phone = payload.phone;
+      state.avatar = payload.user.avatar;
       state.authLoading = false;
       state.isAuthenticated = true;
     },
@@ -34,10 +38,13 @@ const authSlice = createSlice({
       state.authLoading = true;
     },
     authSignUpSuccess(state, { payload }) {
+      console.log({ payload });
       state.accessToken = payload.accessToken;
-      state.username = payload.username;
-      state.name = payload.name;
-      state.avatar = payload.avatar;
+      state.username = payload.user.username;
+      state.name = payload.user.name;
+      state.email = payload.email;
+      state.phone = payload.phone;
+      state.avatar = payload.user.avatar;
       state.authLoading = false;
       state.isAuthenticated = true;
     },
@@ -54,6 +61,8 @@ const authSlice = createSlice({
       state.username = "";
       state.name = "";
       state.avatar = "";
+      state.email = "";
+      state.phone = "";
       state.accessToken = "";
       state.isAuthenticated = false;
       state.authLoading = false;
