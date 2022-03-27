@@ -14,7 +14,12 @@ const couponSlice = createSlice({
     },
     getCategoriesSuccess(state, { payload }) {
       state.loadingCategories = false;
-      state.categories = payload.data;
+
+      state.categories = payload.data.map((item) => ({
+        ...item,
+        label: item.name,
+        value: item.name,
+      }));
     },
     getCategoriesFail(state) {
       state.loadingCategories = false;
@@ -29,6 +34,15 @@ const couponSlice = createSlice({
     getCouponFail(state) {
       state.loadingCoupon = false;
     },
+    submitCardDetail(state, { payload }) {
+      state.loadingCategories = true;
+    },
+    submitCardDetailSuccess(state, { payload }) {
+      state.loadingCategories = false;
+    },
+    submitCardDetailFail(state, { payload }) {
+      state.loadingCategories = false;
+    },
   },
 });
 
@@ -39,6 +53,9 @@ export const {
   getCoupon,
   getCouponFail,
   getCouponSuccess,
+  submitCardDetail,
+  submitCardDetailSuccess,
+  submitCardDetailFail,
 } = couponSlice.actions;
 
 export default couponSlice.reducer;

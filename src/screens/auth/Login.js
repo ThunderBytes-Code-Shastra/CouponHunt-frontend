@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Colors from "../../constant/Colors";
 import loginValidationSchema from "../../utils/loginValidationSchema";
+import logo from "../../../assets/logo.png";
 
 import CustomInput from "../../components/auth/CustomInput";
 
@@ -41,7 +43,7 @@ export default Login = ({ navigation }) => {
         routes: [{ name: "TabNavigator" }],
       });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigation]);
 
   const loginhandler = ({ username, password }) => {
     dispatch(authLogin({ username, password }));
@@ -79,7 +81,8 @@ export default Login = ({ navigation }) => {
             Skip
           </Text>
         </TouchableOpacity>
-        <Text style={styles.welcomeText}>Welcome to Bankco</Text>
+        <Image source={logo} style={styles.logo} resizeMode="stretch" />
+        <Text style={styles.welcomeText}>Welcome to Coupon Hunt</Text>
         <Text style={styles.loginText}>Login to your account</Text>
 
         <Formik
@@ -159,17 +162,18 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
   },
   logo: {
-    width: 300,
-    height: 120,
+    width: 400,
+    height: 200,
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: 8,
+    backgroundColor: "red"
   },
   welcomeText: {
     fontSize: 24,
     fontWeight: "bold",
     color: Colors.secondary,
     textAlign: "center",
-    marginTop: 70,
+    // marginTop: 70,
     marginBottom: 35,
     maxWidth: 380,
     alignSelf: "center",
