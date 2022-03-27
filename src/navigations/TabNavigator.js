@@ -39,13 +39,13 @@ export default function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="BookmarkNavigator"
-        component={BookmarkNavigator}
+        name="CategoriesNavigator"
+        component={CategoriesNavigator}
         options={{
           tabBarColor: Colors.tab2Secondary,
-          tabBarLabel: "Bookmark",
+          tabBarLabel: "Categories",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="bookmarks" size={24} color={color} />
+            <FontAwesome name="th-list" size={24} color={color} />
           ),
         }}
       />
@@ -62,13 +62,13 @@ export default function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="CategoriesNavigator"
-        component={CategoriesNavigator}
+        name="BookmarkNavigator"
+        component={BookmarkNavigator}
         options={{
           tabBarColor: Colors.tab4Secondary,
-          tabBarLabel: "Categories",
+          tabBarLabel: "Bookmark",
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="th-list" size={24} color={color} />
+            <Ionicons name="bookmarks" size={24} color={color} />
           ),
         }}
       />

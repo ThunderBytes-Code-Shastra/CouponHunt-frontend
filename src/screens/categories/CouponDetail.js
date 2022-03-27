@@ -23,6 +23,6 @@ export const CouponDetailOptions = ({ navigation }) => {
     headerTitle: "Coupon Detail",
     // headerTitleAlign: "center",
     headerTintColor: Colors.primary,
-    headerStyle: { backgroundColor: Colors.tab4Secondary },
+    headerStyle: { backgroundColor: Colors.tab2Secondary },
   };
 };

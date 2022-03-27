@@ -21,6 +21,6 @@ export const BookmarkListOptions = ({ navigation }) => {
     headerTitle: "Bookmarks",
     // headerTitleAlign: "center",
     headerTintColor: Colors.primary,
-    headerStyle: { backgroundColor: Colors.tab3Secondary },
+    headerStyle: { backgroundColor: Colors.tab4Secondary },
   };
 };
