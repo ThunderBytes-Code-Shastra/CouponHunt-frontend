@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,10 +8,12 @@ import {
   Dimensions,
   FlatList,
   Switch,
+  TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useDispatch, useSelector } from "react-redux";
 import { CreditCardInput } from "react-native-credit-card-input";
+import DropDownPicker from "react-native-dropdown-picker";
 
 import Colors from "../../constant/Colors";
 
@@ -21,106 +23,130 @@ import {
 } from "../../store/auth/selector";
 import CustomInput from "../../components/auth/CustomInput";
 
-import { Dropdown } from "react-native-element-dropdown";
-import { AntDesign } from "@expo/vector-icons";
-
-const data = [
-  { label: "Item 1", value: "1" },
-  { label: "Item 2", value: "2" },
-  { label: "Item 3", value: "3" },
-  { label: "Item 4", value: "4" },
-  { label: "Item 5", value: "5" },
-  { label: "Item 6", value: "6" },
-  { label: "Item 7", value: "7" },
-  { label: "Item 8", value: "8" },
-];
+import { getCategories, submitCardDetail } from "../../store/coupon/slice";
+import Skeleton from "../../components/Skeleton";
 
 const { width, height } = Dimensions.get("screen");
 
+const cardTypes = [
+  {
+    label: "Debit Cards",
+    value: "Debit Cards",
+  },
+  {
+    label: "Credit Cards",
+    value: "Credit Cards",
+  },
+];
+
 export default Plus = ({ navigation }) => {
   const [bankName, setBankName] = useState("");
-  const [isFocus, setIsFocus] = useState(false);
+  const [bankNameDropdownOpen, setBankNameDropdownOpen] = useState(false);
+  const [cardType, setCardType] = useState("");
+  const [cardTypeDropdownOpen, setCardTypeDropdownOpen] = useState(false);
 
-  const isAuthenticated = useSelector(authIsAuthenticatedSelector);
-  const name = useSelector(authNameSelector);
-  const banks = useSelector();
+  const banks = useSelector((state) => state.coupon.categories);
+  const loading = useSelector((state) => state.coupon.loadingCategories);
 
   const dispatch = useDispatch();
 
-  const onChange = (formData) => {
-    console.log(JSON.stringify(formData, null, ""));
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+
+  const onChange = (formData) => {};
+
+  const onFocus = (field) => {};
+
+  const onSubmitHandler = () => {
+    dispatch(submitCardDetail({ bankName, cardType }));
   };
 
-  const onFocus = (field) => {
-    console.log("focusing: ", field);
-  };
-
-  const onSubmitHandler = () => {};
-
-  const renderLabel = () => {
-    if (bankName || isFocus) {
-      return (
-        <Text style={[styles.label, isFocus && { color: "blue" }]}>
-          Dropdown label
-        </Text>
-      );
-    }
-    return null;
-  };
+  if (loading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#fff",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Skeleton />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          backgroundColor: "#FFF",
-        }}
-      >
-        <CreditCardInput
-          autoFocus
-          requiresName={false}
-          requiresCVC={false}
-          requiresPostalCode={false}
-          labelStyle={styles.label}
-          inputStyle={styles.input}
-          validColor={"black"}
-          invalidColor={"red"}
-          placeholderColor={"darkgray"}
-          onFocus={onFocus}
-          onChange={onChange}
-        />
-        {renderLabel()}
-        <Dropdown
-          style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={data}
-          search
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? "Select item" : "..."}
-          searchPlaceholder="Search..."
+
+      <CreditCardInput
+        autoFocus
+        requiresName={false}
+        requiresCVC={false}
+        requiresPostalCode={false}
+        labelStyle={styles.label}
+        inputStyle={styles.input}
+        validColor={"black"}
+        invalidColor={"red"}
+        placeholderColor={"darkgray"}
+        labels={{ number: "", expiry: "" }}
+        onFocus={onFocus}
+        onChange={onChange}
+      />
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputTitle}>Bank Name</Text>
+        <DropDownPicker
+          listMode="SCROLLVIEW"
+          placeholder="Select"
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholder}
+          textStyle={styles.dropdownTxt}
+          selectedItemContainerStyle={styles.selectedDropdown}
+          selectedItemLabelStyle={styles.selectedDropdownTxt}
+          showTickIcon={false}
+          open={bankNameDropdownOpen}
           value={bankName}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={(item) => {
-            setValue(item.value);
-            setIsFocus(false);
-          }}
-          renderLeftIcon={() => (
-            <AntDesign
-              style={styles.icon}
-              color={isFocus ? "blue" : "black"}
-              name="Safety"
-              size={20}
-            />
-          )}
+          items={banks}
+          setOpen={setBankNameDropdownOpen}
+          setValue={(callback) => setBankName(callback(bankName))}
         />
-      </ScrollView>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputTitle}>Card Type</Text>
+        <DropDownPicker
+          listMode="SCROLLVIEW"
+          placeholder="Select"
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholder}
+          textStyle={styles.dropdownTxt}
+          selectedItemContainerStyle={styles.selectedDropdown}
+          selectedItemLabelStyle={styles.selectedDropdownTxt}
+          showTickIcon={false}
+          open={cardTypeDropdownOpen}
+          value={cardType}
+          items={cardTypes}
+          setOpen={setCardTypeDropdownOpen}
+          setValue={(callback) => setCardType(callback(bankName))}
+        />
+      </View>
+
+      <TouchableOpacity
+        style={{
+          backgroundColor: Colors.tab3Secondary,
+          marginTop: 20,
+          marginHorizontal: 22,
+          paddingVertical: 16,
+          borderRadius: 16,
+          alignItems: "center",
+        }}
+        onPress={onSubmitHandler}
+      >
+        <Text style={{ color: "#fff", fontSize: 20 }}>Submit</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -129,6 +155,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
+    paddingTop: 20,
   },
   switch: {
     alignSelf: "center",
@@ -142,9 +169,10 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 16,
     color: "black",
-  },dropdown: {
+  },
+  dropdown: {
     height: 50,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 8,
@@ -153,8 +181,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   label: {
-    position: 'absolute',
-    backgroundColor: 'white',
+    position: "absolute",
+    backgroundColor: "white",
     left: 22,
     top: 8,
     zIndex: 999,
@@ -174,6 +202,38 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
+  },
+  inputContainer: {
+    marginVertical: 20,
+    marginHorizontal: 12,
+  },
+  inputTitle: {
+    marginBottom: 16,
+    color: Colors.textPrimary,
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  dropdown: {
+    borderRadius: 30,
+    borderColor: "#03B44D",
+  },
+  placeholder: {
+    color: "#b2b2b2",
+  },
+  dropdownTxt: {
+    marginLeft: 10,
+    fontSize: 16,
+  },
+  selectedDropdown: {
+    backgroundColor: "#03B44D",
+  },
+  selectedDropdownTxt: {
+    color: "#fff",
+  },
+  errorText: {
+    fontSize: 12,
+    color: "red",
+    marginTop: 5,
   },
 });
 

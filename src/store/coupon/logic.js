@@ -6,6 +6,9 @@ import {
   getCoupon,
   getCouponFail,
   getCouponSuccess,
+  submitCardDetail,
+  submitCardDetailFail,
+  submitCardDetailSuccess,
 } from "./slice";
 import get from "lodash/get";
 
@@ -49,4 +52,30 @@ const getCouponLogic = createLogic({
   },
 });
 
-export default [getCategoriesLogic, getCouponLogic];
+const submitCardDetailLogic = createLogic({
+  type: submitCardDetail.type,
+  latest: true,
+
+  async process({ action, baseAxios }, dispatch, done) {
+    try {
+      const { bankName, cardType } = action.payload;
+
+      const res = await baseAxios.get("bank-and-offer/offers", {
+        params: { bankName, cardType: encodeURIComponent(cardType) },
+      });
+
+      console.log("submitCardDetail: ", res);
+      dispatch(submitCardDetailSuccess(res.data));
+    } catch (err) {
+      console.log("error: ", { ...err });
+      dispatch(
+        submitCardDetailFail(
+          get(err, "response.data.error.message", err.message)
+        )
+      );
+    }
+    done();
+  },
+});
+
+export default [getCategoriesLogic, getCouponLogic, submitCardDetailLogic];

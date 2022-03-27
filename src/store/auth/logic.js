@@ -1,6 +1,6 @@
 import { createLogic } from "redux-logic";
 import get from "lodash/get";
-import * as SecureStore from 'expo-secure-store';
+import * as SecureStore from "expo-secure-store";
 
 import {
   authLogin,
@@ -26,8 +26,11 @@ const authLoginLogic = createLogic({
         username,
         password,
       });
+
+      console.log("authLoginSuccess: ", res.data)
       dispatch(authLoginSuccess(res.data));
     } catch (err) {
+      console.log("authLogin: ", { ...err });
       dispatch(
         authLoginFail(get(err, "response.data.error.message", err.message))
       );
