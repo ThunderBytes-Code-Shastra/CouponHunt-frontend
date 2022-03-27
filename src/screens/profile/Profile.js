@@ -30,13 +30,19 @@ import {
 } from "react-native-safe-area-context";
 import { authLogout } from "../../store/auth/slice";
 
-export const PersonalInfo = () => <View style={{ flex: 1, backgroundColor: "#fff" }}>
-  
-</View>;
+import { useSelector } from "react-redux";
 
-export const ReedemCode = () => (
+export const PersonalInfo = () => (
   <View style={{ flex: 1, backgroundColor: "#fff" }}></View>
 );
+
+export const ReadSMS = () => {
+  const sms = useSelector();
+
+  return <View style={{ flex: 1, backgroundColor: "#fff" }}>
+
+  </View>;
+};
 
 export default Profile = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState("Personal Info");
@@ -142,7 +148,7 @@ export default Profile = ({ navigation }) => {
           // padding: 8,
         }}
       >
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             justifyContent: "space-evenly",
@@ -160,19 +166,21 @@ export default Profile = ({ navigation }) => {
               Personal Info
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setSelectedTab("Reedem Code")}>
+          <TouchableOpacity onPress={() => setSelectedTab("Read SMS")}>
             <Text
               style={[
                 { fontSize: 18 },
-                selectedTab === "Reedem Code" && { fontWeight: "bold" },
+                selectedTab === "Read SMS" && { fontWeight: "bold" },
               ]}
             >
               Reedem Code
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
-      {selectedTab === "Personal Info" ? <PersonalInfo /> : <ReedemCode />}
+      {/* {selectedTab === "Personal Info" ? <PersonalInfo /> : <ReadSMS />} */}
+
+      <ReadSMS />
 
       {/* <View style={{ marginVertical: 10 }} />
       <Button title="Login" onPress={() => navigation.navigate("Login")} /> */}

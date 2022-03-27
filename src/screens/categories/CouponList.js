@@ -28,7 +28,7 @@ const getDarkRandom = (idx) => {
   return colorList[idx % colorList.length];
 };
 
-export default CouponList = ({ route }) => {
+export default CouponList = ({ route, navigation }) => {
   const params = route.params;
 
   const data = useSelector((state) => state.coupon.couponList);
@@ -109,6 +109,8 @@ export default CouponList = ({ route }) => {
                 backgroundColor: "#fff",
                 borderRadius: 10,
                 overflow: "hidden",
+                elevation: 6,
+                marginHorizontal: 6
               }}
             >
               <View
@@ -165,8 +167,14 @@ export default CouponList = ({ route }) => {
                     style={{
                       backgroundColor: Colors.tab2Secondary,
                       borderRadius: 15,
+                      elevation: 6,
+                      marginBottom: 10
                     }}
-                    onPress={() => {}}
+                    onPress={() =>
+                      navigation.navigate("CouponDetail", {
+                        couponId: item._id,
+                      })
+                    }
                   >
                     <Text
                       style={{
