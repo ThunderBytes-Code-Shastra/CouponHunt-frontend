@@ -16,6 +16,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { CreditCardInput } from "react-native-credit-card-input";
 import DropDownPicker from "react-native-dropdown-picker";
 
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import { RNCamera } from 'react-native-camera';
+
 import Colors from "../../constant/Colors";
 
 import {
